@@ -24,6 +24,11 @@ urlpatterns = [
     path('', include('education.urls')),
 ]
 
-# Serve media files during development
+# Serve static and media files
 if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    # For production, serve static files
+    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+    urlpatterns += staticfiles_urlpatterns()
