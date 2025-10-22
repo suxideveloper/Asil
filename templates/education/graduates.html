@@ -1,0 +1,136 @@
+{% extends 'education/base.html' %}
+
+{% block title %}Success Stories - Asliddin Kurbanov Education Center{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="py-5" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white;">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-3">Success Stories</h1>
+        <p class="lead">Our graduates who have achieved their university dreams</p>
+    </div>
+</section>
+
+<!-- Graduates Grid -->
+<section class="py-5">
+    <div class="container">
+        {% if graduates %}
+        <div class="row">
+            {% for graduate in graduates %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card graduate-card h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            {% if graduate.photo %}
+                                <img src="{{ graduate.photo.url }}" alt="{{ graduate.name }}" class="rounded-circle me-3" style="width: 80px; height: 80px; object-fit: cover;">
+                            {% else %}
+                                <div class="rounded-circle bg-success me-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                    <i class="fas fa-user fa-2x text-white"></i>
+                                </div>
+                            {% endif %}
+                            <div>
+                                <h5 class="mb-1">{{ graduate.name }}</h5>
+                                <span class="badge bg-primary">{{ graduate.graduation_year }}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <h6 class="text-primary mb-1">
+                                <i class="fas fa-university me-2"></i>{{ graduate.university_name }}
+                            </h6>
+                            {% if graduate.major %}
+                            <p class="text-muted mb-0">
+                                <i class="fas fa-graduation-cap me-1"></i>{{ graduate.major }}
+                            </p>
+                            {% endif %}
+                        </div>
+                        
+                        {% if graduate.testimonial %}
+                        <div class="testimonial">
+                            <p class="small fst-italic">"{{ graduate.testimonial }}"</p>
+                        </div>
+                        {% endif %}
+                        
+                        <div class="mt-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar me-1"></i>Graduated {{ graduate.graduation_year }}
+                                </small>
+                                <span class="badge bg-primary text-white">Success Story</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-graduation-cap fa-5x text-muted mb-4"></i>
+            <h3 class="text-muted">Success Stories Coming Soon</h3>
+            <p class="lead text-muted">We're working on showcasing our amazing graduates. Check back soon!</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Statistics Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                        <h3 class="fw-bold">{{ graduates|length }}+</h3>
+                        <p class="text-muted">Successful Graduates</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <i class="fas fa-university fa-3x text-success mb-3"></i>
+                        <h3 class="fw-bold">95%</h3>
+                        <p class="text-muted">University Acceptance Rate</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <i class="fas fa-star fa-3x text-warning mb-3"></i>
+                        <h3 class="fw-bold">4.9</h3>
+                        <p class="text-muted">Average Rating</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <i class="fas fa-trophy fa-3x text-danger mb-3"></i>
+                        <h3 class="fw-bold">5+</h3>
+                        <p class="text-muted">Years of Excellence</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5">
+    <div class="container text-center">
+        <h2 class="mb-4">Be Our Next Success Story</h2>
+        <p class="lead mb-4">Join our program and become part of our growing family of successful university students.</p>
+        <div class="d-flex gap-3 justify-content-center flex-wrap">
+            <a href="{% url 'education:courses' %}" class="btn btn-primary btn-lg">
+                <i class="fas fa-rocket me-2"></i>Start Your Journey
+            </a>
+            <a href="{% url 'education:contact' %}" class="btn btn-outline-primary btn-lg">
+                <i class="fas fa-comments me-2"></i>Get Free Consultation
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

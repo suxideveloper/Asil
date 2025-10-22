@@ -1,0 +1,115 @@
+{% extends 'education/base.html' %}
+
+{% block title %}Our Courses - Asliddin Kurbanov Education Center{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="py-5" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white;">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-3">Our Courses</h1>
+        <p class="lead">Comprehensive programs designed for university entrance success</p>
+    </div>
+</section>
+
+<!-- Courses Grid -->
+<section class="py-5">
+    <div class="container">
+        {% if courses %}
+        <div class="row">
+            {% for course in courses %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h5 class="card-title">{{ course.title }}</h5>
+                            <span class="badge bg-primary">{{ course.duration_weeks }} weeks</span>
+                        </div>
+                        
+                        <p class="card-text">{{ course.description|truncatewords:25 }}</p>
+                        
+                        <div class="mb-3">
+                            <p class="mb-1"><i class="fas fa-user-tie text-primary me-2"></i><strong>Instructor:</strong> {{ course.teacher.name }}</p>
+                            <p class="mb-1"><i class="fas fa-clock text-primary me-2"></i><strong>Duration:</strong> {{ course.duration_weeks }} weeks</p>
+                            {% if course.price > 0 %}
+                            <p class="mb-0"><i class="fas fa-dollar-sign text-primary me-2"></i><strong>Price:</strong> ${{ course.price }}</p>
+                            {% else %}
+                            <p class="mb-0"><i class="fas fa-gift text-success me-2"></i><strong>Price:</strong> Free</p>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="d-grid">
+                            <a href="{% url 'education:contact' %}" class="btn btn-primary">
+                                <i class="fas fa-info-circle me-2"></i>Learn More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-book fa-5x text-muted mb-4"></i>
+            <h3 class="text-muted">Courses Coming Soon</h3>
+            <p class="lead text-muted">We're preparing amazing courses for you. Check back soon!</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Course Features -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title">Why Choose Our Courses?</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="text-center">
+                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                        <i class="fas fa-chalkboard-teacher fa-2x"></i>
+                    </div>
+                    <h5>Expert Teachers</h5>
+                    <p class="text-muted">Learn from experienced educators who understand university entrance requirements.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="text-center">
+                    <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                        <i class="fas fa-users fa-2x"></i>
+                    </div>
+                    <h5>Small Classes</h5>
+                    <p class="text-muted">Personalized attention with small class sizes for better learning outcomes.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="text-center">
+                    <div class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                        <i class="fas fa-chart-line fa-2x"></i>
+                    </div>
+                    <h5>Proven Results</h5>
+                    <p class="text-muted">High success rate with students achieving their university entrance goals.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="text-center">
+                    <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                        <i class="fas fa-calendar-alt fa-2x"></i>
+                    </div>
+                    <h5>Flexible Schedule</h5>
+                    <p class="text-muted">Courses designed to fit your schedule and learning pace.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5">
+    <div class="container text-center">
+        <h2 class="mb-4">Ready to Start Your Learning Journey?</h2>
+        <p class="lead mb-4">Contact us today to learn more about our courses and enrollment process.</p>
+        <a href="{% url 'education:contact' %}" class="btn btn-primary btn-lg">
+            <i class="fas fa-phone me-2"></i>Contact Us Now
+        </a>
+    </div>
+</section>
+{% endblock %}

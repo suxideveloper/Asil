@@ -1,0 +1,114 @@
+{% extends 'education/base.html' %}
+
+{% block title %}Our Teachers - Asliddin Kurbanov Education Center{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="py-5" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white;">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-3">Meet Our Teachers</h1>
+        <p class="lead">Experienced educators dedicated to your success</p>
+    </div>
+</section>
+
+<!-- Lead Teacher -->
+{% if lead_teacher %}
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-body p-5">
+                        <div class="row align-items-center">
+                            <div class="col-lg-4 text-center">
+                                {% if lead_teacher.photo %}
+                                    <img src="{{ lead_teacher.photo.url }}" alt="{{ lead_teacher.name }}" class="teacher-photo">
+                                {% else %}
+                                    <div class="teacher-photo bg-primary d-flex align-items-center justify-content-center">
+                                        <i class="fas fa-user fa-3x text-white"></i>
+                                    </div>
+                                {% endif %}
+                                <div class="achievement-badge mt-3">Lead Teacher</div>
+                            </div>
+                            <div class="col-lg-8">
+                                <h2 class="mb-3">{{ lead_teacher.name }}</h2>
+                                <h5 class="text-primary mb-3">{{ lead_teacher.title }}</h5>
+                                <p class="lead">{{ lead_teacher.bio|default:"Dedicated to providing the best education and guidance for students preparing for university entrance." }}</p>
+                                
+                                <div class="row mt-4">
+                                    {% if lead_teacher.email %}
+                                    <div class="col-md-6 mb-2">
+                                        <p><i class="fas fa-envelope text-primary me-2"></i>{{ lead_teacher.email }}</p>
+                                    </div>
+                                    {% endif %}
+                                    {% if lead_teacher.phone %}
+                                    <div class="col-md-6 mb-2">
+                                        <p><i class="fas fa-phone text-primary me-2"></i>{{ lead_teacher.phone }}</p>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="mt-4">
+                                    <a href="{% url 'education:contact' %}" class="btn btn-primary">
+                                        <i class="fas fa-comments me-2"></i>Contact {{ lead_teacher.name }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Other Teachers -->
+{% if other_teachers %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title">Our Teaching Team</h2>
+        <div class="row">
+            {% for teacher in other_teachers %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card teacher-card h-100">
+                    {% if teacher.photo %}
+                        <img src="{{ teacher.photo.url }}" alt="{{ teacher.name }}" class="teacher-photo">
+                    {% else %}
+                        <div class="teacher-photo bg-secondary d-flex align-items-center justify-content-center mx-auto">
+                            <i class="fas fa-user fa-3x text-white"></i>
+                        </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ teacher.name }}</h5>
+                        <p class="text-primary mb-3">{{ teacher.title }}</p>
+                        <p class="card-text">{{ teacher.bio|default:"Experienced educator committed to student success."|truncatewords:20 }}</p>
+                        
+                        <div class="mt-3">
+                            {% if teacher.email %}
+                            <p class="small mb-1"><i class="fas fa-envelope me-1"></i>{{ teacher.email }}</p>
+                            {% endif %}
+                            {% if teacher.phone %}
+                            <p class="small mb-1"><i class="fas fa-phone me-1"></i>{{ teacher.phone }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Call to Action -->
+<section class="py-5">
+    <div class="container text-center">
+        <h2 class="mb-4">Ready to Learn from the Best?</h2>
+        <p class="lead mb-4">Our experienced teachers are here to guide you on your path to university success.</p>
+        <a href="{% url 'education:courses' %}" class="btn btn-primary btn-lg">
+            <i class="fas fa-book me-2"></i>Explore Our Courses
+        </a>
+    </div>
+</section>
+{% endblock %}

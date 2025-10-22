@@ -1,0 +1,156 @@
+{% extends 'education/base.html' %}
+
+{% block title %}Home - Asliddin Kurbanov Education Center{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="hero-content">
+                    <h1 class="display-4 fw-bold mb-4">
+                        Welcome to <span class="text-warning">Asliddin Kurbanov</span> Education Center
+                    </h1>
+                    <p class="lead mb-4">
+                        Preparing bright minds for university entrance with personalized guidance, 
+                        expert teaching, and proven success methods.
+                    </p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="{% url 'education:courses' %}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-book me-2"></i>Explore Courses
+                        </a>
+                        <a href="{% url 'education:contact' %}" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-phone me-2"></i>Contact Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="text-center">
+                    <i class="fas fa-graduation-cap" style="font-size: 15rem; opacity: 0.3;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Lead Teacher Section -->
+{% if lead_teacher %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-4 text-center">
+                {% if lead_teacher.photo %}
+                    <img src="{{ lead_teacher.photo.url }}" alt="{{ lead_teacher.name }}" class="teacher-photo">
+                {% else %}
+                    <div class="teacher-photo bg-primary d-flex align-items-center justify-content-center">
+                        <i class="fas fa-user fa-3x text-white"></i>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-lg-8">
+                <div class="achievement-badge d-inline-block mb-3">Lead Teacher</div>
+                <h2 class="mb-3">{{ lead_teacher.name }}</h2>
+                <h5 class="text-primary mb-3">{{ lead_teacher.title }}</h5>
+                <p class="lead">{{ lead_teacher.bio|default:"Dedicated to providing the best education and guidance for students preparing for university entrance." }}</p>
+                <div class="row mt-4">
+                    {% if lead_teacher.email %}
+                    <div class="col-md-6">
+                        <p><i class="fas fa-envelope text-primary me-2"></i>{{ lead_teacher.email }}</p>
+                    </div>
+                    {% endif %}
+                    {% if lead_teacher.phone %}
+                    <div class="col-md-6">
+                        <p><i class="fas fa-phone text-primary me-2"></i>{{ lead_teacher.phone }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Featured Achievements -->
+{% if featured_achievements %}
+<section class="py-5">
+    <div class="container">
+        <h2 class="section-title">Our Achievements</h2>
+        <div class="row">
+            {% for achievement in featured_achievements %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="achievement-badge mb-3">{{ achievement.date_achieved|date:"Y" }}</div>
+                        <h5 class="card-title">{{ achievement.title }}</h5>
+                        <p class="card-text">{{ achievement.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Recent Graduates -->
+{% if recent_graduates %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title">Success Stories</h2>
+        <div class="row">
+            {% for graduate in recent_graduates %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card graduate-card h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            {% if graduate.photo %}
+                                <img src="{{ graduate.photo.url }}" alt="{{ graduate.name }}" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                            {% else %}
+                                <div class="rounded-circle bg-success me-3 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-user text-white"></i>
+                                </div>
+                            {% endif %}
+                            <div>
+                                <h6 class="mb-1">{{ graduate.name }}</h6>
+                                <small class="text-muted">Class of {{ graduate.graduation_year }}</small>
+                            </div>
+                        </div>
+                        <h6 class="text-primary mb-2">{{ graduate.university_name }}</h6>
+                        {% if graduate.major %}
+                        <p class="text-muted mb-2"><i class="fas fa-graduation-cap me-1"></i>{{ graduate.major }}</p>
+                        {% endif %}
+                        {% if graduate.testimonial %}
+                        <p class="small">{{ graduate.testimonial|truncatewords:20 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'education:graduates' %}" class="btn btn-outline-primary">
+                View All Success Stories <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Call to Action -->
+<section class="py-5" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white;">
+    <div class="container text-center">
+        <h2 class="mb-4">Ready to Start Your University Journey?</h2>
+        <p class="lead mb-4">Join hundreds of successful students who have achieved their dreams with our guidance.</p>
+        <div class="d-flex gap-3 justify-content-center flex-wrap">
+            <a href="{% url 'education:courses' %}" class="btn btn-warning btn-lg">
+                <i class="fas fa-rocket me-2"></i>Start Learning Today
+            </a>
+            <a href="{% url 'education:contact' %}" class="btn btn-outline-light btn-lg">
+                <i class="fas fa-comments me-2"></i>Get Free Consultation
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
