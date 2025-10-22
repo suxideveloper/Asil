@@ -14,6 +14,13 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'your-secret-key-here')
 # Allowed hosts for production
 ALLOWED_HOSTS = ['*', 'web-production-37b0.up.railway.app', '.railway.app', '.up.railway.app']
 
+# CSRF settings for Railway
+CSRF_TRUSTED_ORIGINS = [
+    'https://web-production-37b0.up.railway.app',
+    'https://*.railway.app',
+    'https://*.up.railway.app',
+]
+
 # Database configuration for production
 DATABASES = {
     'default': {
