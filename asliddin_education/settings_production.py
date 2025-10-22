@@ -5,6 +5,18 @@ Production settings for asliddin_education project.
 from .settings import *
 import os
 
+# Ensure Jazzmin is properly configured for production
+INSTALLED_APPS = [
+    'jazzmin',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'education',
+]
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
