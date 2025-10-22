@@ -12,7 +12,7 @@ DEBUG = False
 SECRET_KEY = os.environ.get('SECRET_KEY', 'your-secret-key-here')
 
 # Allowed hosts for production
-ALLOWED_HOSTS = ['*']  # Change this to your domain name
+ALLOWED_HOSTS = ['*', 'web-production-37b0.up.railway.app', '.railway.app', '.up.railway.app']
 
 # Database configuration for production
 DATABASES = {
