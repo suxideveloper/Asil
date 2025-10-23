@@ -2,10 +2,29 @@
 Production settings for asliddin_education project.
 """
 
-from .settings import *
 import os
+from pathlib import Path
 
-# Ensure Jazzmin is properly configured for production
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-j(9sr%z72%lr61o0p()@^%=oxj^)p4n*mw90zp)4h=s6r1bf^b')
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+
+ALLOWED_HOSTS = ['*']
+
+# CSRF settings
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.railway.app',
+    'https://*.up.railway.app',
+    'https://*.render.com',
+    'https://*.herokuapp.com',
+]
+
+# Application definition
 INSTALLED_APPS = [
     'jazzmin',
     'django.contrib.admin',
@@ -17,7 +36,80 @@ INSTALLED_APPS = [
     'education',
 ]
 
-# Jazzmin Configuration for Production
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+ROOT_URLCONF = 'asliddin_education.urls'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = 'asliddin_education.wsgi.application'
+
+# Database
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+# Password validation
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+
+# Internationalization
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_TZ = True
+
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
+# Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# Default primary key field type
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Jazzmin Configuration
 JAZZMIN_SETTINGS = {
     "site_title": "Asliddin Kurbanov Admin",
     "site_header": "Asliddin Kurbanov",
@@ -98,59 +190,22 @@ JAZZMIN_UI_TWEAKS = {
     }
 }
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'your-secret-key-here')
-
-# Allowed hosts for production
-ALLOWED_HOSTS = ['*', 'web-production-37b0.up.railway.app', '.railway.app', '.up.railway.app']
-
-# CSRF settings for Railway
-CSRF_TRUSTED_ORIGINS = [
-    'https://web-production-37b0.up.railway.app',
-    'https://*.railway.app',
-    'https://*.up.railway.app',
-]
-
-# Database configuration for production
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-# Static files configuration for production
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
-
-# Media files configuration
-MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_URL = '/media/'
-
 # Security settings for production
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
 
-# Session settings for Railway
-SESSION_COOKIE_SECURE = False  # Railway uses HTTP internally
-CSRF_COOKIE_SECURE = False     # Railway uses HTTP internally
+# Session settings
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_AGE = 86400  # 24 hours
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
-# CSRF settings for Railway
+# CSRF settings
 CSRF_COOKIE_HTTPONLY = False
 CSRF_USE_SESSIONS = False
 
-# Email configuration (optional)
+# Email configuration
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Logging configuration
@@ -172,66 +227,3 @@ LOGGING = {
         },
     },
 }
-
-
-import os
-from pathlib import Path
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'unsafe-secret-key')
-
-DEBUG = False
-
-ALLOWED_HOSTS = ['.railway.app', '127.0.0.1', 'localhost']
-
-CSRF_TRUSTED_ORIGINS = ['https://*.railway.app']
-
-# STATIC FILES
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-# SECURITY SETTINGS
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
-
-# SESSION SETTINGS
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-SESSION_COOKIE_SAMESITE = 'None'
-
-# DATABASE
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('PGDATABASE'),
-        'USER': os.environ.get('PGUSER'),
-        'PASSWORD': os.environ.get('PGPASSWORD'),
-        'HOST': os.environ.get('PGHOST'),
-        'PORT': os.environ.get('PGPORT'),
-    }
-}
-
-# APPLICATIONS
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    # your apps here
-]
-
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-
-ROOT_URLCONF = 'asliddin_education.urls'
-WSGI_APPLICATION = 'asliddin_education.wsgi.application'

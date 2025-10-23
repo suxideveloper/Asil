@@ -1,6 +1,23 @@
-# Asliddin Kurbanov Education Center
+# 🎓 Asliddin Kurbanov Education Center
 
 A Django-based website for Asliddin Kurbanov's education center that prepares children for university entrance.
+
+## 🚀 Live Demo
+- **Website**: [Deploy to Render](https://render.com)
+- **Admin Panel**: Available after deployment
+- **Credentials**: admin / admin123
+
+## 🛠️ Quick Deploy to Render
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
+
+1. Click the "Deploy to Render" button above
+2. Connect your GitHub account
+3. Select this repository
+4. Use these settings:
+   - **Build Command**: `pip install -r requirements.txt && python manage.py collectstatic --noinput --settings=asliddin_education.settings_production && python manage.py migrate --settings=asliddin_education.settings_production`
+   - **Start Command**: `gunicorn asliddin_education.wsgi:application --bind 0.0.0.0:$PORT`
+   - **Environment Variable**: `DJANGO_SETTINGS_MODULE=asliddin_education.settings_production`
 
 ## Features
 
