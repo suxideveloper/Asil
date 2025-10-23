@@ -50,3 +50,24 @@ node_modules/
 # Backup files
 *.bak
 *.backup
+
+# Deployment files (keep only Railway)
+DEPLOYMENT*.md
+*_DEPLOYMENT.md
+*_DEPLOY.md
+*_GUIDE.md
+*_CHECKLIST.md
+*_FINAL.md
+*_SUMMARY.md
+*_STEP_BY_STEP.md
+*_VISUAL_GUIDE.md
+*_QUICK_DEPLOY.md
+*_EASY_DEPLOY.md
+render.yaml
+deploy.sh
+railway
+
+# Keep only essential files
+!RAILWAY_DEPLOYMENT.md
+!RAILWAY_QUICK_DEPLOY.md
+!RAILWAY_VISUAL_GUIDE.md

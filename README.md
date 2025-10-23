@@ -2,22 +2,21 @@
 
 A Django-based website for Asliddin Kurbanov's education center that prepares children for university entrance.
 
-## 🚀 Live Demo
-- **Website**: [Deploy to Render](https://render.com)
-- **Admin Panel**: Available after deployment
-- **Credentials**: admin / admin123
+## 🚀 Quick Deploy to Railway
 
-## 🛠️ Quick Deploy to Render
+[![Deploy to Railway](https://railway.app/button.svg)](https://railway.app/template/your-template-id)
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
-
-1. Click the "Deploy to Render" button above
+**One-click deployment to Railway:**
+1. Click the "Deploy to Railway" button above
 2. Connect your GitHub account
-3. Select this repository
-4. Use these settings:
-   - **Build Command**: `pip install -r requirements.txt && python manage.py collectstatic --noinput --settings=asliddin_education.settings_production && python manage.py migrate --settings=asliddin_education.settings_production`
-   - **Start Command**: `gunicorn asliddin_education.wsgi:application --bind 0.0.0.0:$PORT`
-   - **Environment Variable**: `DJANGO_SETTINGS_MODULE=asliddin_education.settings_production`
+3. Railway automatically detects Django and deploys!
+
+**Manual deployment:**
+1. Go to [railway.app](https://railway.app)
+2. Sign up with GitHub
+3. Click "New Project" → "Deploy from GitHub repo"
+4. Select this repository
+5. Railway handles everything automatically!
 
 ## Features
 
